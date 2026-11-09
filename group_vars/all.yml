@@ -1,0 +1,38 @@
+---
+# ---- common ---------------------------------------------------------------
+baseline_timezone: Europe/Zurich
+baseline_packages:
+  - curl
+  - git
+  - htop
+  - jq
+  - rsync
+  - tmux
+  - unzip
+  - vim
+baseline_auto_reboot: true
+baseline_auto_reboot_time: "04:30"
+
+# ---- users ----------------------------------------------------------------
+# Public keys only. Never commit private keys.
+baseline_admin_users:
+  - name: ops
+    shell: /bin/bash
+    ssh_keys:
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExampleKeyReplaceMe ops@laptop"
+
+# ---- ssh ------------------------------------------------------------------
+baseline_ssh_port: 22
+baseline_ssh_allow_groups: [sshusers]
+
+# ---- firewall -------------------------------------------------------------
+# Extra ports per host can be set in host_vars/<host>.yml
+baseline_firewall_allowed_tcp: []
+baseline_firewall_allowed_udp: []
+baseline_firewall_trusted_cidrs: []   # e.g. ["192.168.1.0/24"] for full LAN access
+
+# ---- fail2ban -------------------------------------------------------------
+baseline_fail2ban_maxretry: 5
+baseline_fail2ban_findtime: 10m
+baseline_fail2ban_bantime: 1h
+baseline_fail2ban_ignoreip: ["127.0.0.1/8", "::1"]

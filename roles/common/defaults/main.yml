@@ -1,0 +1,5 @@
+---
+baseline_timezone: UTC
+baseline_packages: []
+baseline_auto_reboot: false
+baseline_auto_reboot_time: "04:30"

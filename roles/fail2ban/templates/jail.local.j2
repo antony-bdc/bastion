@@ -1,0 +1,16 @@
+# {{ ansible_managed }}
+[DEFAULT]
+bantime  = {{ baseline_fail2ban_bantime }}
+findtime = {{ baseline_fail2ban_findtime }}
+maxretry = {{ baseline_fail2ban_maxretry }}
+ignoreip = {{ baseline_fail2ban_ignoreip | join(' ') }}
+banaction = ufw
+backend = systemd
+
+# Repeat offenders get banned for longer each time.
+bantime.increment = true
+bantime.maxtime   = 1w
+
+[sshd]
+enabled = true
+port    = {{ baseline_ssh_port }}

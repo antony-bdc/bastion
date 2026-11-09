@@ -1,0 +1,15 @@
+---
+- name: Apply server baseline
+  hosts: all
+  become: true
+  roles:
+    - role: common
+      tags: [common]
+    - role: users
+      tags: [users]
+    - role: ssh
+      tags: [ssh]
+    - role: firewall
+      tags: [firewall]
+    - role: fail2ban
+      tags: [fail2ban]

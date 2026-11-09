@@ -1,0 +1,6 @@
+---
+baseline_ssh_port: 22
+baseline_fail2ban_maxretry: 5
+baseline_fail2ban_findtime: 10m
+baseline_fail2ban_bantime: 1h
+baseline_fail2ban_ignoreip: ["127.0.0.1/8", "::1"]

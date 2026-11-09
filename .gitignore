@@ -1,0 +1,4 @@
+inventory/hosts.yml
+host_vars/
+*.retry
+.vagrant/

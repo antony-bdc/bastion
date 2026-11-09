@@ -1,0 +1,3 @@
+---
+baseline_admin_users: []
+baseline_ssh_allow_groups: [sshusers]

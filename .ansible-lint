@@ -1,0 +1,9 @@
+---
+profile: production
+exclude_paths:
+  - .github/
+  - Vagrantfile
+skip_list:
+  # All roles share one documented "baseline_" namespace on purpose:
+  # one place (group_vars/all.yml) configures the whole playbook.
+  - var-naming[no-role-prefix]

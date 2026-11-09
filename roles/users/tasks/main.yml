@@ -1,0 +1,49 @@
+---
+- name: Ensure SSH access groups exist
+  ansible.builtin.group:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ baseline_ssh_allow_groups }}"
+
+- name: Create admin users
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    shell: "{{ item.shell | default('/bin/bash') }}"
+    groups: "{{ ['sudo'] + baseline_ssh_allow_groups }}"
+    append: true
+    password: "!"            # locked password: key-only login
+    update_password: on_create
+  loop: "{{ baseline_admin_users }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Install authorized keys (exclusive)
+  ansible.posix.authorized_key:
+    user: "{{ item.name }}"
+    key: "{{ item.ssh_keys | join('\n') }}"
+    exclusive: true
+  loop: "{{ baseline_admin_users }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Allow passwordless sudo for admin users
+  ansible.builtin.copy:
+    dest: "/etc/sudoers.d/90-{{ item.name }}"
+    content: "{{ item.name }} ALL=(ALL) NOPASSWD:ALL\n"
+    owner: root
+    group: root
+    mode: "0440"
+    validate: /usr/sbin/visudo -cf %s
+  loop: "{{ baseline_admin_users }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+# Without this, AllowGroups would lock out the account Ansible connects with.
+- name: Keep the connecting user able to log in
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups: "{{ baseline_ssh_allow_groups }}"
+    append: true
+  when:
+    - ansible_user is defined
+    - ansible_user != 'root'
