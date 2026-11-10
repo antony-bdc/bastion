@@ -1,4 +1,4 @@
-# server-baseline
+# bastion
 
 Ansible playbook that turns a fresh Ubuntu/Debian server into a hardened, self-updating host in one run.
 Every machine in my homelab starts here before anything else gets installed.
@@ -56,4 +56,4 @@ Run a single part with tags: `ansible-playbook site.yml --tags ssh`.
 
 ---
 
-Part of my homelab series → [backup-toolkit](https://github.com/businessantonybdc-crypto/backup-toolkit) · [minecraft-server-ops](https://github.com/businessantonybdc-crypto/minecraft-server-ops) · [homelab-monitoring](https://github.com/businessantonybdc-crypto/homelab-monitoring)
+Part of my homelab series → [safekeep](https://github.com/antony-bdc/safekeep) · [dwellers-galaxy](https://github.com/antony-bdc/dwellers-galaxy) · [observatory](https://github.com/antony-bdc/observatory)
